@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rmocsai <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:59:00 by rmocsai           #+#    #+#             */
-/*   Updated: 2023/04/12 11:31:21 by rmocsai          ###   ########.fr       */
+/*   Created: 2022/10/03 14:28:07 by rmocsai           #+#    #+#             */
+/*   Updated: 2022/10/17 17:12:39 by rmocsai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <signal.h>
-# include <unistd.h>
-# include "./libft/libft.h"
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	size_t	i;
+	size_t	len;
 
-#endif
+	i = 0;
+	if (!s || !f)
+		return ;
+	if (!ft_strlen(s))
+		return ;
+	len = ft_strlen(s);
+	while (i < len)
+	{
+		f(i, s + i);
+		i++;
+	}
+	return ;
+}
