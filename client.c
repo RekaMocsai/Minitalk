@@ -6,15 +6,18 @@
 /*   By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:35:11 by rmocsai           #+#    #+#             */
-/*   Updated: 2023/04/12 12:06:29 by rmocsai          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:45:03 by rmocsai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+int	g_in = 0;
+
 void	ft_handshake(int signum)
 {
 	(void)signum;
+	g_in = 1;
 }
 
 void	ft_sendsignals(pid_t pid_server, char *str)
@@ -33,7 +36,9 @@ void	ft_sendsignals(pid_t pid_server, char *str)
 			else
 				kill(pid_server, SIGUSR1);
 			i--;
-			pause();
+			while (!g_in)
+				usleep(25);
+			g_in = 0;
 		}
 		j++;
 	}

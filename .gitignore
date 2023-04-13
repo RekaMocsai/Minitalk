@@ -4,3 +4,4 @@ server
 client
 .vscode
 *.txt
+tester/

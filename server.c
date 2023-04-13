@@ -6,17 +6,16 @@
 /*   By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:35:05 by rmocsai           #+#    #+#             */
-/*   Updated: 2023/04/12 11:57:20 by rmocsai          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:45:05 by rmocsai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	g_out = 0;
-
-static int	ft_bitshifting(int signum, int reset)
+static int	ft_bitshifting(int signum, int reset, siginfo_t *info)
 {
 	static int		count_char = 0;
+	static int		g_out = 0;
 
 	if (reset == 0)
 	{
@@ -31,6 +30,8 @@ static int	ft_bitshifting(int signum, int reset)
 		g_out = g_out << 1;
 		g_out = ~g_out;
 	}
+	usleep(25);
+	kill(info->si_pid, SIGUSR1);
 	count_char++;
 	if (count_char == 8)
 	{
@@ -39,6 +40,11 @@ static int	ft_bitshifting(int signum, int reset)
 	}
 	return (1);
 }
+
+// If the signal is SIGUSR1, the function shifts the g_out variable
+// one bit to the left. If the signal is SIGUSR2, the function inverts
+// the bits in g_out, shifts it one bit to the left, and then inverts
+// the bits again.
 
 static void	ft_server(int signum, siginfo_t *info, void *context)
 {
@@ -55,9 +61,7 @@ static void	ft_server(int signum, siginfo_t *info, void *context)
 		reset = 0;
 		pid_compare = pid_client;
 	}
-	reset = ft_bitshifting(signum, reset);
-	usleep(50);
-	kill(pid_client, SIGUSR1);
+	reset = ft_bitshifting(signum, reset, info);
 }
 
 int	main(void)
