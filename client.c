@@ -6,7 +6,7 @@
 /*   By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:35:11 by rmocsai           #+#    #+#             */
-/*   Updated: 2023/04/18 13:46:56 by rmocsai          ###   ########.fr       */
+/*   Updated: 2023/04/18 16:12:26 by rmocsai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_in = 0;
 
-void	ft_handshake(int signum, siginfo_t *info, void *context)
+static void	ft_handshake(int signum, siginfo_t *info, void *context)
 {
 	(void)signum;
 	(void)context;
@@ -22,7 +22,7 @@ void	ft_handshake(int signum, siginfo_t *info, void *context)
 	g_in = 1;
 }
 
-void	ft_sendsignals(pid_t pid_server, char *str)
+static void	ft_sendsignals(pid_t pid_server, char *str)
 {
 	int	i;
 	int	j;
@@ -56,7 +56,11 @@ int	main(int ac, char **av)
 'S<./client [PID_NR] [message]'\n"));
 	pid_server = ft_atoi(av[1]);
 	sa.sa_sigaction = ft_handshake;
-	sigaction(SIGUSR1, &sa, NULL);
+	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+	{
+		ft_printf("sigaction failed");
+		exit(1);
+	}
 	ft_sendsignals(pid_server, av[2]);
 	return (0);
 }

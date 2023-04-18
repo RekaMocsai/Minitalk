@@ -6,7 +6,7 @@
 /*   By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:35:05 by rmocsai           #+#    #+#             */
-/*   Updated: 2023/04/18 13:40:19 by rmocsai          ###   ########.fr       */
+/*   Updated: 2023/04/18 16:23:45 by rmocsai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static int	ft_bitshifting(int signum, int reset, siginfo_t *info)
 	static int		c = 0;
 
 	if (reset == 0)
-	{
 		count_bit = 0;
-		reset = 1;
-	}
 	if (signum == SIGUSR1)
 		c = c << 1;
 	else if (signum == SIGUSR2)
@@ -70,8 +67,16 @@ int	main(void)
 	ft_printf("PID: %d\n", pid_server);
 	ft_printf("waiting for the client...\n");
 	sa.sa_sigaction = ft_server;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+	{
+		ft_printf("sigaction failed");
+		exit(1);
+	}
+	if (sigaction(SIGUSR2, &sa, NULL) == -1)
+	{
+		ft_printf("sigaction failed");
+		exit(1);
+	}
 	while (1)
 		pause();
 	return (0);
