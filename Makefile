@@ -6,7 +6,7 @@
 #    By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 11:57:01 by rmocsai           #+#    #+#              #
-#    Updated: 2023/04/12 11:43:23 by rmocsai          ###   ########.fr        #
+#    Updated: 2023/04/18 13:10:07 by rmocsai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,22 +46,22 @@ all: $(BOTH)
 $(NAME_S): $(OBJ_S)
 		$(MAKE) all -C ./libft
 		cc -o $(NAME_S) $(OBJ_S) $(LIBFT)
-		echo "$(MAGENTA)server $(CYAN)is ready"
+		echo "$(MAGENTA)server $(CYAN)is ready$(CLR_RM)"
 
 $(NAME_C): $(OBJ_C)
 		$(MAKE) all -C ./libft
 		cc -o $(NAME_C) $(OBJ_C) $(LIBFT)
-		echo "$(MAGENTA)client $(CYAN)is ready"
+		echo "$(MAGENTA)client $(CYAN)is ready$(CLR_RM)"
 		
 clean:
 		$(MAKE) clean -C ./libft
 		$(RM) $(OBJ_S) $(OBJ_C)
-		echo "$(MAGENTA)object files $(CYAN)deleted"
+		echo "$(MAGENTA)object files $(CYAN)deleted$(CLR_RM)"
 		
 fclean:	clean
 		$(MAKE) fclean -C ./libft
 		$(RM) $(NAME_S) $(NAME_C)
-		echo "$(MAGENTA)binary files $(CYAN)deleted"
+		echo "$(MAGENTA)binary files $(CYAN)deleted$(CLR_RM)"
 re:	fclean all
 
 norm:	$(SRC_S) $(SRC_C)

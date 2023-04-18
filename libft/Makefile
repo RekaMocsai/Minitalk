@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: reka <reka@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/04 10:27:01 by rmocsai           #+#    #+#              #
-#    Updated: 2023/03/09 14:02:04 by reka             ###   ########.fr        #
+#    Updated: 2023/04/18 13:12:09 by rmocsai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ CFLAGS	= -Wall -Wextra -Werror
 
 CC		= cc
 
-THEPATH = tests
+CLR_RM		= \033[0m
+MAGENTA		= \033[0;95m
+CYAN 		= \033[1;36m
 
 .PHONY: all clean fclean re norm so
 .SILENT:
@@ -54,7 +56,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	echo "$(NAME) deleted"
+	echo "$(MAGENTA)$(NAME) $(CYAN)deleted$(CLR_RM)"
 
 re: fclean all
 
