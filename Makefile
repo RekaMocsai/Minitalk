@@ -6,7 +6,7 @@
 #    By: rmocsai <rmocsai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 11:57:01 by rmocsai           #+#    #+#              #
-#    Updated: 2023/04/18 13:10:07 by rmocsai          ###   ########.fr        #
+#    Updated: 2023/04/19 13:38:14 by rmocsai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJ_S		=	${SRC_S:.c=.o}
 
 OBJ_C		=	${SRC_C:.c=.o}
 
-CC		=	cc
+CC		=	gcc
 
 CFLAGS	=	-Wall -Werror -Wextra -g
 
